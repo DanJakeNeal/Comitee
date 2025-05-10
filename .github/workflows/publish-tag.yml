@@ -35,7 +35,7 @@ jobs:
     needs: validate-tag
     uses: ./.github/workflows/test-template.yml
 
-    publish:
+  publish:
     needs: run-tests
     runs-on: ubuntu-latest
     steps:
