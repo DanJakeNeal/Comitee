@@ -33,7 +33,7 @@ jobs:
 
   run-tests:
     needs: validate-tag
-    uses: ./.github/workflows/test-template.yml
+    uses: ./.github/workflows/run-tests.yml
 
   publish:
     needs: run-tests
