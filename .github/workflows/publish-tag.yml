@@ -15,7 +15,7 @@ jobs:
           MAIN_BRANCH="main"
 
           SEMVER_REGEX="^v[0-9]+\.[0-9]+\.[0-9]+$"
-          PRERELEASE_REGEX="^v[0-9]+\.[0-9]+\.[0-9]+-[A-Za-z0-9]+(\.[0-9]+)?$"
+          PRERELEASE_REGEX="^v(\d+)\.(\d+)\.(\d+)-(\d{4})\.(\d{2})\.(\d{2})\-(\d+)$"
 
           REF_BRANCH=$(git branch -r --contains "$TAG_NAME" | grep -v '\->' | sed 's/origin\///' | xargs || echo "$MAIN_BRANCH")
 
@@ -26,7 +26,7 @@ jobs:
             fi
           else
             if [[ ! "$TAG_NAME" =~ $PRERELEASE_REGEX ]]; then
-              echo "::error::Tags on non-main branches must be pre-release versions like v1.2.3-beta.1"
+              echo "::error::Tags on non-main branches must be pre-release versions containing the release date and release number such as v1.2.3-2025.01.01-1"
               exit 1
             fi
           fi
