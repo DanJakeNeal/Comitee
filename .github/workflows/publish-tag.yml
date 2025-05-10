@@ -15,7 +15,7 @@ jobs:
           MAIN_BRANCH="main"
 
           MAIN_VERSION_REGEX="^v[0-9]+\.[0-9]+\.[0-9]+$"
-          PRERELEASE_VERSION_REGEX="^v(\[0-9]+)\.(\[0-9]+)\.(\[0-9]+)-(\[0-9]{4})\.(\[0-9]{2})\.(\[0-9]{2})\-(\[0-9]+)$"
+          PRERELEASE_VERSION_REGEX="^v([0-9]+)\.([0-9]+)\.([0-9]+)-([0-9]{4})\.([0-9]{2})\.([0-9]{2})-([0-9]+)$"
 
           REF_BRANCH=$(git branch -r --contains "$TAG_NAME" | grep -v '\->' | sed 's/origin\///' | xargs || echo "$MAIN_BRANCH")
 
