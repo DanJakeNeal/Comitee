@@ -3,6 +3,8 @@
     <PropertyGroup>
         <Authors>Dan Neal</Authors>
         <RepositoryUrl>https://github.com/DanJakeNeal/Comitee</RepositoryUrl>
+        <MinVerTagPrefix>v</MinVerTagPrefix>
+        <PackageReadmeFile>..\..\README.md</PackageReadmeFile>
         <TargetFramework>net8.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
@@ -20,6 +22,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\Comitee\Comitee.csproj" />
+      <None Include="..\..\README.md" Pack="true" PackagePath="\"/>
     </ItemGroup>
 
 </Project>
