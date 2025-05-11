@@ -5,6 +5,7 @@
         <RepositoryUrl>https://github.com/DanJakeNeal/Comitee</RepositoryUrl>
         <MinVerTagPrefix>v</MinVerTagPrefix>
         <PackageReadmeFile>README.md</PackageReadmeFile>
+        <Version>{MinVerMajor}.{MinVerMinor}.{MinVerPatch}-{MinVerPreRelease}</Version>
         <TargetFramework>net8.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
