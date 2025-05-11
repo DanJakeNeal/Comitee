@@ -4,7 +4,7 @@
         <Authors>Dan Neal</Authors>
         <RepositoryUrl>https://github.com/DanJakeNeal/Comitee</RepositoryUrl>
         <MinVerTagPrefix>v</MinVerTagPrefix>
-        <PackageReadmeFile>..\..\README.md</PackageReadmeFile>
+        <PackageReadmeFile>README.md</PackageReadmeFile>
         <TargetFramework>net8.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
