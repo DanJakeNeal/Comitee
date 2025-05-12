@@ -4,7 +4,6 @@
         <Authors>Dan Neal</Authors>
         <RepositoryUrl>https://github.com/DanJakeNeal/Comitee</RepositoryUrl>
         <MinVerTagPrefix>v</MinVerTagPrefix>
-        <MinVerDefaultPreReleaseIdentifiers>preview.0</MinVerDefaultPreReleaseIdentifiers>
         <PackageReadmeFile>README.md</PackageReadmeFile>
         <TargetFramework>net8.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
