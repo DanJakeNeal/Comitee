@@ -17,12 +17,15 @@ jobs:
       - name: Extract branch and tag details
         id: extract_tag_info
         run: |
+          BRANCH_NAME="${{ github.base_ref }}"
+          echo "branch_name=${BRANCH_NAME}" >> $GITHUB_ENV
+          
           TAG_NAME="${{ github.ref_name }}"
           echo "tag_name=${TAG_NAME}" >> $GITHUB_ENV
           
       - name: Validate tag format
         run: |
-          if [ "$GITHUB_BASE_REF" = "main" ]; then
+          if [ "$BRANCH_NAME" = "main" ]; then
             if [[ ! "$TAG_NAME" =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
               echo "Invalid tag format for main branch: $TAG_NAME"
               exit 1
