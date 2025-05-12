@@ -17,11 +17,17 @@ jobs:
       - name: Extract branch and tag details
         id: extract_tag_info
         run: |
-          BRANCH_NAME="${{ github.base_ref }}"
-          echo "branch_name=${BRANCH_NAME}" >> $GITHUB_ENV
-          
           TAG_NAME="${{ github.ref_name }}"
+          echo "Tag name: $TAG_NAME"
+
+          TAG_COMMIT=$(git rev-list -n 1 "$TAG_NAME")
+          echo "Tag commit: $TAG_COMMIT"
+
+          BRANCH_NAME=$(git branch -r --contains "$TAG_COMMIT" | grep -Eo 'origin/[^ ]+' | sed 's|origin/||' | head -n 1)
+          echo "Branch name: $BRANCH_NAME"
+
           echo "tag_name=${TAG_NAME}" >> $GITHUB_ENV
+          echo "branch_name=${BRANCH_NAME}" >> $GITHUB_ENV
           
       - name: Validate tag format
         run: |
