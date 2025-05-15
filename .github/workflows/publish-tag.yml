@@ -30,7 +30,7 @@ jobs:
           
       - name: Validate tag format
         run: |
-          if [ "${{ env.branch_name }}" = "main" ]; then
+          if [ "${{ env.branch_name }}" = "HEAD" ]; then
             if [[ ! "${{ env.tag_name }}" =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
               echo "Invalid tag format for main branch: ${{ env.tag_name }}"
               exit 1
