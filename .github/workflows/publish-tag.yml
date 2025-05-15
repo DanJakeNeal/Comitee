@@ -31,18 +31,18 @@ jobs:
           
       - name: Validate tag format
         run: |
-          if [ "$BRANCH_NAME" = "main" ]; then
-            if [[ ! "$TAG_NAME" =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
-              echo "Invalid tag format for main branch: $TAG_NAME"
+          if [ "${{ env.branch_name }}" = "main" ]; then
+            if [[ ! "${{ env.tag_name }}" =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+              echo "Invalid tag format for main branch: ${{ env.tag_name }}"
               exit 1
             fi
           else
-            if [[ ! "$TAG_NAME" =~ ^v[0-9]+\.[0-9]+\.[0-9]+-preview\.[0-9]+$ ]]; then
-              echo "Invalid tag format for non-main branch: $TAG_NAME"
+            if [[ ! "${{ env.tag_name }}" =~ ^v[0-9]+\.[0-9]+\.[0-9]+-preview\.[0-9]+$ ]]; then
+              echo "Invalid tag format for non-main branch: ${{ env.tag_name }}"
               exit 1
             fi
           fi
-          echo "Tag format validated successfully: $TAG_NAME"
+          echo "Tag format validated successfully: ${{ env.tag_name }}"
   
   run-tests:
     needs: validate-tag
