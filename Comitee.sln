@@ -1,0 +1,47 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{0CEE4CD1-D620-46CC-AF4E-85D2AB7F2829}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{1E3AE071-306D-438F-B7BB-D4D4695391C1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Comitee", "src\Comitee\Comitee.csproj", "{FD3F4A30-037A-4527-860B-E3A8AA5E989B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Comitee.Mongo", "src\Comitee.Mongo\Comitee.Mongo.csproj", "{6135BFE7-99C9-49DE-87D6-5056A71D9BD3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Commitee.Mongo.IntegrationTests", "test\Commitee.Mongo.IntegrationTests\Commitee.Mongo.IntegrationTests.csproj", "{E02E92AF-59F0-44E2-B694-F1B46369CEFC}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".github", ".github", "{58B4A951-5552-48FF-AFA8-F9AFA31B18A9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{80D2B1CA-07DE-4D4B-8634-59A7568E6F40}"
+	ProjectSection(SolutionItems) = preProject
+		.github\workflows\run-tests.yml = .github\workflows\run-tests.yml
+		.github\workflows\pulll-request.yml = .github\workflows\pulll-request.yml
+		.github\workflows\publish-tag.yml = .github\workflows\publish-tag.yml
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{FD3F4A30-037A-4527-860B-E3A8AA5E989B} = {0CEE4CD1-D620-46CC-AF4E-85D2AB7F2829}
+		{6135BFE7-99C9-49DE-87D6-5056A71D9BD3} = {0CEE4CD1-D620-46CC-AF4E-85D2AB7F2829}
+		{E02E92AF-59F0-44E2-B694-F1B46369CEFC} = {1E3AE071-306D-438F-B7BB-D4D4695391C1}
+		{80D2B1CA-07DE-4D4B-8634-59A7568E6F40} = {58B4A951-5552-48FF-AFA8-F9AFA31B18A9}
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FD3F4A30-037A-4527-860B-E3A8AA5E989B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FD3F4A30-037A-4527-860B-E3A8AA5E989B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FD3F4A30-037A-4527-860B-E3A8AA5E989B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FD3F4A30-037A-4527-860B-E3A8AA5E989B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6135BFE7-99C9-49DE-87D6-5056A71D9BD3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6135BFE7-99C9-49DE-87D6-5056A71D9BD3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6135BFE7-99C9-49DE-87D6-5056A71D9BD3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6135BFE7-99C9-49DE-87D6-5056A71D9BD3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E02E92AF-59F0-44E2-B694-F1B46369CEFC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E02E92AF-59F0-44E2-B694-F1B46369CEFC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E02E92AF-59F0-44E2-B694-F1B46369CEFC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E02E92AF-59F0-44E2-B694-F1B46369CEFC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

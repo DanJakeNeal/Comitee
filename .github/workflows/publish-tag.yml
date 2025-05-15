@@ -1,0 +1,75 @@
+name: Publish NuGet Package
+
+on:
+  push:
+    tags:
+      - '*'
+
+jobs:
+  validate-tag:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          filter: tree:0
+        
+      - name: Extract branch and tag details
+        id: extract_tag_info
+        run: |
+          TAG_NAME="${{ github.ref_name }}"
+          echo "Tag name: $TAG_NAME"
+
+          TAG_COMMIT=$(git rev-list -n 1 "$TAG_NAME")
+          echo "Tag commit: $TAG_COMMIT"
+
+          BRANCH_NAME=$(git branch -r --contains "$TAG_COMMIT" | grep -Eo 'origin/[^ ]+' | sed 's|origin/||' | head -n 1)
+          echo "Branch name: $BRANCH_NAME"
+
+          echo "tag_name=${TAG_NAME}" >> $GITHUB_ENV
+          echo "branch_name=${BRANCH_NAME}" >> $GITHUB_ENV
+          
+      - name: Validate tag format
+        run: |
+          if [ "${{ env.branch_name }}" = "main" ]; then
+            if [[ ! "${{ env.tag_name }}" =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+              echo "Invalid tag format for main branch: ${{ env.tag_name }}"
+              exit 1
+            fi
+          else
+            if [[ ! "${{ env.tag_name }}" =~ ^v[0-9]+\.[0-9]+\.[0-9]+-preview\.[0-9]+$ ]]; then
+              echo "Invalid tag format for non-main branch: ${{ env.tag_name }}"
+              exit 1
+            fi
+          fi
+          echo "Tag format validated successfully: ${{ env.tag_name }}"
+  
+  run-tests:
+    needs: validate-tag
+    uses: ./.github/workflows/run-tests.yml
+
+  publish:
+    needs: run-tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          filter: tree:0
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '8.0.x'
+
+      - name: Restore dependencies
+        run: dotnet restore
+
+      - name: Build
+        run: dotnet build --configuration Release --no-restore
+
+      - name: Pack NuGet package
+        run: dotnet pack --configuration Release --no-build --output ./nupkg
+
+      # - name: Publish to NuGet
+      #   run: dotnet nuget push ./nupkg/*.nupkg --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json

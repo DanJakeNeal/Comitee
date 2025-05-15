@@ -1,0 +1,12 @@
+name: Pull Request - Test Run
+
+on:
+  pull_request:
+    branches:
+      - main
+      - development
+      - 'feature/**'
+
+jobs:
+  run-tests:
+    uses: ./.github/workflows/run-tests.yml
