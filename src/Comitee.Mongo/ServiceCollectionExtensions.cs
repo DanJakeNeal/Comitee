@@ -12,8 +12,6 @@ public static class ServiceCollectionExtensions
 {
     public static IServiceCollection AddMongoRepository<TDocumentId, TDocument>(
         this IServiceCollection services, 
-        string connectionString,
-        string databaseName,
         string collectionName,
         MongoCollectionSettings? collectionSettings = null)
         where TDocument : DataModel<TDocumentId>
@@ -25,7 +23,7 @@ public static class ServiceCollectionExtensions
         
         services.TryAddScoped<IUnitOfWorkOperator>(x => x.GetRequiredService<UnitOfWork>());
         
-        services.AddMongoCollection<TDocument>(connectionString, databaseName, collectionName, collectionSettings);
+        services.AddMongoCollection<TDocument>(collectionName, collectionSettings);
         
         services.TryAddScoped<IRepository<TDocumentId, TDocument>>(x =>
             new MongoRepository<TDocumentId, TDocument>(
@@ -37,17 +35,24 @@ public static class ServiceCollectionExtensions
     
     private static IServiceCollection AddMongoCollection<TDocument>(
         this IServiceCollection services,
-        string connectionString,
-        string databaseName,
         string collectionName,
         MongoCollectionSettings? collectionSettings)
     {
-        var mongoClient = new MongoClient(connectionString);
+        services.TryAddSingleton<IMongoCollection<TDocument>>(s =>
+        {
+            var mongoSettings = s.GetService<MongoSettings>();
+
+            if (mongoSettings is null)
+            {
+                throw new ArgumentException("No mongodb settings have been specified. Ensure AddMongo has been called");
+            }
+            
+            var mongoClient = new MongoClient(mongoSettings.ConnectionString);
         
-        var mongoDatabase = mongoClient.GetDatabase(databaseName);
-        
-        services.TryAddSingleton(mongoDatabase);
-        services.TryAddSingleton<IMongoCollection<TDocument>>(_ => mongoDatabase.GetCollection<TDocument>(collectionName, collectionSettings));
+            var mongoDatabase = mongoClient.GetDatabase(mongoSettings.DatabaseName);
+            
+            return mongoDatabase.GetCollection<TDocument>(collectionName, collectionSettings);
+        });
         
         return services;
     }
