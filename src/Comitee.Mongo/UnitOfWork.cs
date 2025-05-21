@@ -1,11 +1,13 @@
 ﻿using Comitee.UnitOfWork;
+using Microsoft.Extensions.DependencyInjection;
 using MongoDB.Driver;
 
 namespace Comitee.Mongo;
 
-internal class UnitOfWork(IMongoDatabase mongoDatabase) : IUnitOfWork, IUnitOfWorkOperator
+internal class UnitOfWork(IServiceProvider serviceProvider, MongoSettings mongoSettings) : IUnitOfWork, IUnitOfWorkOperator
 {
-    private readonly IClientSessionHandle _mongoSession = mongoDatabase.Client.StartSession();
+    private readonly IClientSessionHandle _mongoSession = serviceProvider
+        .GetRequiredKeyedService<IMongoDatabase>(mongoSettings.DatabaseName).Client.StartSession();
     
     public IDisposable Context => _mongoSession;
     private readonly List<Action> _operations = [];

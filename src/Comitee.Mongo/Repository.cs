@@ -114,6 +114,7 @@ internal class MongoRepository<TDataModelId, TDataModel>(IUnitOfWorkOperator uni
         {
             var currentVersion = dataModel.Version;
             dataModel.Version += 1;
+            dataModel.UpdatedAt = DateTimeOffset.UtcNow;
             
             var result = collection.ReplaceOne(
                 unitOfWorkOperator.Context as IClientSessionHandle,
